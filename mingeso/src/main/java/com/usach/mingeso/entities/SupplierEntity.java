@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
+import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 @Entity
 @Table(name = "supplier")
@@ -13,16 +15,10 @@ import jakarta.persistence.*;
 @AllArgsConstructor
 public class SupplierEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
-    private Long supplierId;
-    @Column(unique=true,nullable=false, length = 5)
+    @NotNull
     private String supplierCode;
-    @Column(unique=true,nullable = false, length = 45)
     private String supplierName;
-    @Column(nullable = false, length = 1)
     private String supplierCategory;
-    @Column(nullable = false, length = 3)
-    private Boolean supplierRetention;
+    private String supplierRetention;
 
 }

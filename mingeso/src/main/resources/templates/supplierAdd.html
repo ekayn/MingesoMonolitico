@@ -27,27 +27,29 @@
     </div>
   </nav>
   <div class="container">
-    <br>
-    <table class="table">
-      <thead class="thead-dark">
-      <tr>
-        <th>Nombre</th>
-        <th>Código</th>
-        <th>Categoría</th>
-        <th>Retención</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="proveedor:${proveedores}">
-        <td th:text="${proveedor.supplierName}"></td>
-        <td th:text="${proveedor.supplierCode}"></td>
-        <td th:text="${proveedor.supplierCategory}"></td>
-        <td th:text="${proveedor.supplierRetention}"></td>
-      </tr>
-      </tbody>
-    </table>
-    <br>
-    <a class="btn btn-primary" href="/ingresarProveedor" role="button">Ingresar Proveedor</a>
+    <form th:action="@{/ingresarProveedor}" method="POST">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" class="form-control" id="supplierName"
+               placeholder="Ingrese nombre de la empresa. Ejemplo: LechesVacum.org" name="supplierName" required>
+      </div>
+      <div class="form-group">
+        <label>Código</label>
+        <input type="text" class="form-control" id="supplierCode"
+               placeholder="Ingrese código de la empresa. Ejemplo: 02563" name="supplierCode" required>
+      </div>
+      <div class="form-group">
+        <label>Categoría</label>
+        <input type="text" class="form-control" id="supplierCategory"
+               placeholder="Ingrese categoría de la empresa. Ejemplo: A, B, C, D" name="supplierCategory" required>
+      </div>
+      <div class="form-group">
+        <label>Retención</label>
+        <input type="text" class="form-control" id="supplierRetention"
+               placeholder="Señale si la empresa tiene retención. Ejemplo: Si, No" name="supplierRetention" required>
+      </div>
+      <button type="submit" class="btn btn-success">Registrar Proveedor</button>
+    </form>
   </div>
 </body>
 </html>
