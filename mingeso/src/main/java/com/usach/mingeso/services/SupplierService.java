@@ -5,7 +5,6 @@ import com.usach.mingeso.repositories.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -18,11 +17,6 @@ public class SupplierService {
         return (ArrayList<SupplierEntity>) supplierRepository.findAll();
     }
 
-    /**
-    public  SupplierEntity guardarProveedor(SupplierEntity proveedor){
-        return supplierRepository.save(proveedor);
-    }
-    */
     public void guardarProveedor(String supplierName, String supplierCode, String supplierCategory, String supplierRetention){
         SupplierEntity proveedor = new SupplierEntity();
         proveedor.setSupplierName(supplierName);

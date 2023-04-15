@@ -18,15 +18,19 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="/listarProveedores">Proveedores <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/listar-proveedores">Proveedores <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/listarProveedores">Acopios <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/listar-acopios">Acopios <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/listar-grasas-solidos">Grasas y solidos <span class="sr-only">(current)</span></a>
         </li>
       </ul>
     </div>
 </nav>
 <div class="container">
+  <br>
   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
@@ -49,10 +53,30 @@
     </a>
   </div>
   <br>
-  <div class="container">
-    <a href="/listar" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Lista proveedores</a>
-    <a href="/" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Link</a>
+  <div class="card-deck">
+
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="file.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Cargar acopios</h5>
+        <p class="card-text">Cargar archivo de acopio de leche entregada por los proveedores al sistema</p>
+        <a href="/subir-acopios" class="btn btn-primary">Cargar</a>
+      </div>
+    </div>
+
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="grasas.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Cargar grasas y solidos</h5>
+        <p class="card-text">Cargar archivo de grasas y solidos totales en la leche por cada proveedor al sistema</p>
+        <a href="/subir-grasas-solidos" class="btn btn-primary">Cargar</a>
+      </div>
+    </div>
+
   </div>
+
+  <br>
+  <br>
 </div>
 </body>
 </html>

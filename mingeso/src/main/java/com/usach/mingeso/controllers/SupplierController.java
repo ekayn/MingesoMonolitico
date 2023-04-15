@@ -18,23 +18,23 @@ public class SupplierController {
     @Autowired
     SupplierService supplierService;
 
-    @GetMapping("/listarProveedores")
+    @GetMapping("/listar-proveedores")
     public String listarProveedores(Model model){
         ArrayList<SupplierEntity>proveedores = supplierService.obtenerProveedores();
         model.addAttribute("proveedores", proveedores);
         return "supplierList";
     }
 
-    @GetMapping("/ingresarProveedor")
+    @GetMapping("/ingresar-proveedor")
     public String proveedor(){
         return "supplierAdd";
     }
-    @PostMapping("/ingresarProveedor")
+    @PostMapping("/ingresar-proveedor")
     public String nuevoProveedor(@RequestParam("supplierName") String supplierName,
                                  @RequestParam("supplierCode") String supplierCode,
                                  @RequestParam("supplierCategory") String supplierCategory,
                                  @RequestParam("supplierRetention") String supplierRetention){
         supplierService.guardarProveedor(supplierName, supplierCode, supplierCategory, supplierRetention);
-        return "redirect:/listarProveedores";
+        return "redirect:/listar-proveedores";
     }
 }

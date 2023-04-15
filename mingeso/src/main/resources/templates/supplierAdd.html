@@ -18,16 +18,16 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="/listarProveedores">Proveedores <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/listar-proveedores">Proveedores <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/listarProveedores">Acopios <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/listar-acopios">Acopios <span class="sr-only">(current)</span></a>
         </li>
       </ul>
     </div>
   </nav>
   <div class="container">
-    <form th:action="@{/ingresarProveedor}" method="POST">
+    <form th:action="@{/ingresar-proveedor}" method="POST">
       <div class="form-group">
         <label>Nombre</label>
         <input type="text" class="form-control" id="supplierName"
@@ -38,16 +38,25 @@
         <input type="text" class="form-control" id="supplierCode"
                placeholder="Ingrese código de la empresa. Ejemplo: 02563" name="supplierCode" required>
       </div>
+
       <div class="form-group">
         <label>Categoría</label>
-        <input type="text" class="form-control" id="supplierCategory"
-               placeholder="Ingrese categoría de la empresa. Ejemplo: A, B, C, D" name="supplierCategory" required>
+        <select class="form-control" name="supplierCategory" id="supplierCategory">
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+        </select>
       </div>
+
       <div class="form-group">
         <label>Retención</label>
-        <input type="text" class="form-control" id="supplierRetention"
-               placeholder="Señale si la empresa tiene retención. Ejemplo: Si, No" name="supplierRetention" required>
+        <select class="form-control" name="supplierRetention" id="supplierRetention">
+          <option value="Si">Si</option>
+          <option value="No">No</option>
+        </select>
       </div>
+
       <button type="submit" class="btn btn-success">Registrar Proveedor</button>
     </form>
   </div>

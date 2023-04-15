@@ -8,15 +8,15 @@ import jakarta.persistence.*;
 import org.jetbrains.annotations.NotNull;
 
 @Entity
-@Table(name = "suppliers")
+@Table(name = "collections")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SupplierEntity {
+public class CollectionEntity {
     @Id
     @NotNull
-    private String supplierCode;
-    private String supplierName;
-    private String supplierCategory;
-    private String supplierRetention;
+    private String collectionSupplier;
+    private String collectionDate;
+    private String collectionShift;
+    private String collectionMilk;
 }
