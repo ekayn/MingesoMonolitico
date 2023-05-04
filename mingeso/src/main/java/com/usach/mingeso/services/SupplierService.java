@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Service
 public class SupplierService {
@@ -17,20 +16,24 @@ public class SupplierService {
         return (ArrayList<SupplierEntity>) supplierRepository.findAll();
     }
 
+    public boolean existeProveedorPorCodigo(String code){
+        return supplierRepository.existsById(code);
+    }
+
+    public SupplierEntity obtenerProveedorCodigo(String code){
+        return supplierRepository.getReferenceById(code);
+    }
+
     public void guardarProveedor(String supplierName, String supplierCode, String supplierCategory, String supplierRetention){
         SupplierEntity proveedor = new SupplierEntity();
-        proveedor.setSupplierName(supplierName);
-        proveedor.setSupplierCode(supplierCode);
-        proveedor.setSupplierCategory(supplierCategory);
-        proveedor.setSupplierRetention(supplierRetention);
+        proveedor.setName(supplierName);
+        proveedor.setCode(supplierCode);
+        proveedor.setCategory(supplierCategory);
+        proveedor.setRetention(supplierRetention);
         supplierRepository.save(proveedor);
     }
 
-    public Optional<SupplierEntity> obtenerProveedorPorId(Long id){
-        return supplierRepository.findById(id);
-    }
-
-    public boolean eliminarProveedor(Long id) {
+    public boolean eliminarProveedor(String id) {
         try{
             supplierRepository.deleteById(id);
             return true;

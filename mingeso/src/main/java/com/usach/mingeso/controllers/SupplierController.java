@@ -1,6 +1,7 @@
 package com.usach.mingeso.controllers;
 
 import com.usach.mingeso.entities.SupplierEntity;
+import com.usach.mingeso.services.RegisterService;
 import com.usach.mingeso.services.SupplierService;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +10,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 
-@Controller
 @RequestMapping
+@Controller
 public class SupplierController {
     @Autowired
     SupplierService supplierService;
+
+    @Autowired
+    RegisterService registerService;
 
     @GetMapping("/listar-proveedores")
     public String listarProveedores(Model model){
@@ -33,8 +38,15 @@ public class SupplierController {
     public String nuevoProveedor(@RequestParam("supplierName") String supplierName,
                                  @RequestParam("supplierCode") String supplierCode,
                                  @RequestParam("supplierCategory") String supplierCategory,
-                                 @RequestParam("supplierRetention") String supplierRetention){
-        supplierService.guardarProveedor(supplierName, supplierCode, supplierCategory, supplierRetention);
-        return "redirect:/listar-proveedores";
+                                 @RequestParam("supplierRetention") String supplierRetention,
+                                 RedirectAttributes redirectAttributes){
+        if (supplierService.existeProveedorPorCodigo(supplierCode)){
+            redirectAttributes.addFlashAttribute("mensaje", "¡Código de proveedor ya existente!");
+        }else{
+            supplierService.guardarProveedor(supplierName, supplierCode, supplierCategory, supplierRetention);
+            registerService.guardarRegistro(supplierCode);
+            redirectAttributes.addFlashAttribute("mensaje", "¡Proveedor guardado con éxito!");
+        }
+        return "redirect:/ingresar-proveedor";
     }
 }

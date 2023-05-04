@@ -7,15 +7,15 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "suppliers")
+@Table(name = "registers")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class SupplierEntity {
+public class RegisterEntity {
     @Id
     @Column(nullable=false, length = 5)
     private String code;
-    private String name;
-    private String category;
-    private String retention;
+    private Integer milk;
+    private Integer grease;
+    private Integer solid;
 }

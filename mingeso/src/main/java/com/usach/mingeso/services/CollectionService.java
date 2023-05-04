@@ -27,19 +27,22 @@ public class CollectionService {
         return (ArrayList<CollectionEntity>) collectionRepository.findAll();
     }
 
-    public void guardarAcopio(String collectionDate, String collectionShift, String collectionSupplier, String collectionMilk){
+    public ArrayList<CollectionEntity> obtenerAcopiosCodigo(String code){
+        return collectionRepository.findAllCode(code);
+    }
+
+    public void guardarAcopio(String collectionDate, String collectionShift, String collectionSupplier, Integer collectionMilk){
         CollectionEntity acopio = new CollectionEntity();
-        acopio.setCollectionDate(collectionDate);
-        acopio.setCollectionShift(collectionShift);
-        acopio.setCollectionSupplier(collectionSupplier);
-        acopio.setCollectionMilk(collectionMilk);
+        acopio.setDate(collectionDate);
+        acopio.setShift(collectionShift);
+        acopio.setSupplier(collectionSupplier);
+        acopio.setMilk(collectionMilk);
         collectionRepository.save(acopio);
     }
 
-
     private final Logger logg = LoggerFactory.getLogger(CollectionService.class);
     @Generated
-    public String guardarCsv(MultipartFile file){
+    public void guardarCsv(MultipartFile file){
         String filename = file.getOriginalFilename();
         if(filename != null){
             if(!file.isEmpty()){
@@ -53,10 +56,6 @@ public class CollectionService {
                     logg.error("ERROR", e);
                 }
             }
-            return "Archivo guardado con exito!";
-        }
-        else{
-            return "No se pudo guardar el archivo";
         }
     }
     @Generated
@@ -72,7 +71,7 @@ public class CollectionService {
                     count = 0;
                 }
                 else{
-                    guardarAcopio(bfRead.split(";")[0], bfRead.split(";")[1], bfRead.split(";")[2], bfRead.split(";")[3]);
+                    guardarAcopio(bfRead.split(";")[0], bfRead.split(";")[1], bfRead.split(";")[2], Integer.parseInt(bfRead.split(";")[3]));
                 }
             }
             System.out.println("ARCHIVO CARGADO EXITOSAMENTE");

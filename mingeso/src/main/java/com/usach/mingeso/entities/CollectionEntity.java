@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
-import org.jetbrains.annotations.NotNull;
 
 @Entity
 @Table(name = "collections")
@@ -14,9 +13,11 @@ import org.jetbrains.annotations.NotNull;
 @AllArgsConstructor
 public class CollectionEntity {
     @Id
-    @NotNull
-    private String collectionSupplier;
-    private String collectionDate;
-    private String collectionShift;
-    private String collectionMilk;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
+    private Long id;
+    private String supplier;
+    private String date;
+    private String shift;
+    private Integer milk;
 }
