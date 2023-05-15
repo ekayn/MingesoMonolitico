@@ -10,6 +10,6 @@ import java.util.ArrayList;
 
 @Repository
 public interface CollectionRepository extends JpaRepository<CollectionEntity, Long> {
-    @Query("select e.id from CollectionEntity e where e.id = :code")
+    @Query("select e.code from CollectionEntity e where e.code = :code")
     ArrayList<CollectionEntity> findAllCode(@Param("code") String code);
 }

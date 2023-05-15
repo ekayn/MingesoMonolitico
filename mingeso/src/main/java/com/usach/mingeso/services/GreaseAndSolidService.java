@@ -27,7 +27,11 @@ public class GreaseAndSolidService {
         return (ArrayList<GreaseAndSolidEntity>) greaseAndSolidRepository.findAll();
     }
 
-    public void guardarGrasaYSolido(String greaseAndSolidCode, Integer greaseAndSolidGrease, Integer greaseAndSolidSolid){
+    public boolean existeGrasaSolidoCodigo(String code){
+        return greaseAndSolidRepository.existsById(code);
+    }
+
+    public void guardarGrasaYSolido(String greaseAndSolidCode, Double greaseAndSolidGrease, Double greaseAndSolidSolid){
         GreaseAndSolidEntity grasaYSolido = new GreaseAndSolidEntity();
         grasaYSolido.setCode(greaseAndSolidCode);
         grasaYSolido.setGrease(greaseAndSolidGrease);
@@ -60,7 +64,7 @@ public class GreaseAndSolidService {
     @Generated
     public void cargarCsv(String direccion){
         BufferedReader bf = null;
-        greaseAndSolidRepository.deleteAll();
+        //greaseAndSolidRepository.deleteAll();
         try{
             bf = new BufferedReader(new FileReader(direccion));
             String bfRead;
@@ -70,7 +74,12 @@ public class GreaseAndSolidService {
                     count = 0;
                 }
                 else{
-                    guardarGrasaYSolido(bfRead.split(";")[0], Integer.parseInt(bfRead.split(";")[1]), Integer.parseInt(bfRead.split(";")[2]));
+                    if (greaseAndSolidRepository.existsById(bfRead.split(";")[0])){
+                        greaseAndSolidRepository.getReferenceById(bfRead.split(";")[0]).setGrease(Double.parseDouble(bfRead.split(";")[1]));
+                        greaseAndSolidRepository.getReferenceById(bfRead.split(";")[0]).setSolid(Double.parseDouble(bfRead.split(";")[2]));
+                    } else {
+                        guardarGrasaYSolido(bfRead.split(";")[0], Double.parseDouble(bfRead.split(";")[1]), Double.parseDouble(bfRead.split(";")[2]));
+                    }
                 }
             }
             System.out.println("ARCHIVO CARGADO EXITOSAMENTE");

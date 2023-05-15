@@ -37,18 +37,46 @@
         </nav>
         <div class="container">
             <br>
-            <h1><b>Cargar archivo de grasas y solidos totales</b></h1>
-            <form th:action="@{/subir-grasas-solidos}" method="POST" enctype="multipart/form-data">
-                <br>
-                <input type="file" class="form-control" name="file" accept = ".csv">
-                <br>
-                <input class = "btn btn-primary" type="submit" value="Cargar el archivo de datos">
-            </form>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Código</th>
+                        <th>Quincena</th>
+                        <th>Nombre</th>
+                        <th>Días de entrega</th>
+                        <th>Leche por día</th>
+                        <th>Leche total KLS</th>
+                        <th>Grasa % total</th>
+                        <th>Solidos % total</th>
+                        <th>Variación % leche</th>
+                        <th>Variación % grasa</th>
+                        <th>Variacón % solidos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="pago:${pagos}">
+                        <td th:text="${pago.code}"></td>
+                        <td th:text="${pago.date}"></td>
+                        <td th:text="${pago.name}"></td>
+                        <td th:text="${pago.milkDays}"></td>
+                        <td th:text="${pago.milkAverage}"></td>
+                        <td th:text="${pago.milk}"></td>
+                        <td th:text="${pago.grease}"></td>
+                        <td th:text="${pago.solid}"></td>
+                        <td th:text="${pago.milkChanged}"></td>
+                        <td th:text="${pago.greaseChanged}"></td>
+                        <td th:text="${pago.solidChanged}"></td>
+                    </tr>
+                </tbody>
+            </table>
             <br>
-            <br>
-            <h5 class="alert alert-warning">
-                Nota: Asegurese de que el archivo posea el formato "Código;Grasas totales;Solidos totales", con extención ".csv"
-            </h5>
+            <a class="btn btn-primary" href="/ingresar-pago" role="button">Ingresar Pago</a>
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="listar-pagos-1">1</a></li>
+                    <li class="page-item"><a class="page-link" href="listar-pagos-2">2</a></li>
+                </ul>
+            </nav>
         </div>
     </body>
 </html>

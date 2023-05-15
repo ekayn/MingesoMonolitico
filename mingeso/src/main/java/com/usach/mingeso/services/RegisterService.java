@@ -29,10 +29,10 @@ public class RegisterService {
 
     public void actualizarLeche(){
         for (RegisterEntity registro : registerRepository.findAll()){
-            registro.setMilk(0);
+            registro.setMilk(0.0);
         }
         for (CollectionEntity acopio : collectionService.obtenerAcopios()){
-            RegisterEntity registro = registerRepository.getReferenceById(acopio.getSupplier());
+            RegisterEntity registro = registerRepository.getReferenceById(acopio.getCode());
             registro.setMilk(acopio.getMilk()+registro.getMilk());
         }
     }
@@ -47,9 +47,9 @@ public class RegisterService {
     public void guardarRegistro(String registerCode){
         RegisterEntity registro = new RegisterEntity();
         registro.setCode(registerCode);
-        registro.setMilk(0);
-        registro.setGrease(0);
-        registro.setSolid(0);
+        registro.setMilk(0.0);
+        registro.setGrease(0.0);
+        registro.setSolid(0.0);
         registerRepository.save(registro);
     }
 }

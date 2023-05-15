@@ -13,18 +13,18 @@ import jakarta.persistence.*;
 @Data
 public class PayEntity {
     @Id
-    @Column(nullable=false, length = 5)
+    @Column(nullable=false)
     private String code;
     private String category;
     private String date;
     private String name;
-    private Integer milk;
-    private Integer milkDays;
+    private Double milk;
+    private Double milkDays;
     private Double milkAverage;
     private Double milkChanged;
-    private Integer grease;
+    private Double grease;
     private Double greaseChanged;
-    private Integer solid;
+    private Double solid;
     private Double solidChanged;
 
     private Double milkPay;

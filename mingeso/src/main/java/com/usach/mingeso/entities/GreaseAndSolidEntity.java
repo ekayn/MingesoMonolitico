@@ -15,6 +15,6 @@ public class GreaseAndSolidEntity {
     @Id
     @Column(nullable=false, length = 5)
     private String code;
-    private Integer grease;
-    private Integer solid;
+    private Double grease;
+    private Double solid;
 }

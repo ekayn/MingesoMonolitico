@@ -15,7 +15,7 @@ public class RegisterEntity {
     @Id
     @Column(nullable=false, length = 5)
     private String code;
-    private Integer milk;
-    private Integer grease;
-    private Integer solid;
+    private Double milk;
+    private Double grease;
+    private Double solid;
 }

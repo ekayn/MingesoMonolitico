@@ -16,8 +16,8 @@ public class CollectionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
-    private String supplier;
+    private String code;
     private String date;
     private String shift;
-    private Integer milk;
+    private Double milk;
 }

@@ -28,14 +28,20 @@ public class CollectionService {
     }
 
     public ArrayList<CollectionEntity> obtenerAcopiosCodigo(String code){
-        return collectionRepository.findAllCode(code);
+        ArrayList<CollectionEntity> acopios = new ArrayList<>();
+        for (CollectionEntity acopio: collectionRepository.findAll()){
+            if (acopio.getCode().equals(code)){
+                acopios.add(acopio);
+            }
+        }
+        return acopios;
     }
 
-    public void guardarAcopio(String collectionDate, String collectionShift, String collectionSupplier, Integer collectionMilk){
+    public void guardarAcopio(String collectionDate, String collectionShift, String collectionSupplier, Double collectionMilk){
         CollectionEntity acopio = new CollectionEntity();
         acopio.setDate(collectionDate);
         acopio.setShift(collectionShift);
-        acopio.setSupplier(collectionSupplier);
+        acopio.setCode(collectionSupplier);
         acopio.setMilk(collectionMilk);
         collectionRepository.save(acopio);
     }
@@ -71,7 +77,7 @@ public class CollectionService {
                     count = 0;
                 }
                 else{
-                    guardarAcopio(bfRead.split(";")[0], bfRead.split(";")[1], bfRead.split(";")[2], Integer.parseInt(bfRead.split(";")[3]));
+                    guardarAcopio(bfRead.split(";")[0], bfRead.split(";")[1], bfRead.split(";")[2], Double.parseDouble(bfRead.split(";")[3]));
                 }
             }
             System.out.println("ARCHIVO CARGADO EXITOSAMENTE");
