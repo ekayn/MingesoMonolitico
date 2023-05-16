@@ -43,9 +43,13 @@ public class SupplierController {
         if (supplierService.existeProveedorPorCodigo(supplierCode)){
             redirectAttributes.addFlashAttribute("mensaje", "¡Código de proveedor ya existente!");
         }else{
-            supplierService.guardarProveedor(supplierName, supplierCode, supplierCategory, supplierRetention);
-            registerService.guardarRegistro(supplierCode);
-            redirectAttributes.addFlashAttribute("mensaje", "¡Proveedor guardado con éxito!");
+            if (supplierService.existeProveedorPorNombre(supplierName)){
+                redirectAttributes.addFlashAttribute("mensaje", "¡Nombre de proveedor ya existente!");
+            } else {
+                supplierService.guardarProveedor(supplierName, supplierCode, supplierCategory, supplierRetention);
+                registerService.guardarRegistro(supplierCode);
+                redirectAttributes.addFlashAttribute("mensaje", "¡Proveedor guardado con éxito!");
+            }
         }
         return "redirect:/ingresar-proveedor";
     }

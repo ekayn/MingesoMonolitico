@@ -1,11 +1,9 @@
 package com.usach.mingeso.controllers;
 
 import com.usach.mingeso.entities.PayEntity;
-import com.usach.mingeso.entities.RegisterEntity;
 import com.usach.mingeso.entities.SupplierEntity;
 import com.usach.mingeso.services.GreaseAndSolidService;
 import com.usach.mingeso.services.PayService;
-import com.usach.mingeso.services.RegisterService;
 import com.usach.mingeso.services.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

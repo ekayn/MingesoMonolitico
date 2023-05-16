@@ -28,13 +28,7 @@ public class CollectionService {
     }
 
     public ArrayList<CollectionEntity> obtenerAcopiosCodigo(String code){
-        ArrayList<CollectionEntity> acopios = new ArrayList<>();
-        for (CollectionEntity acopio: collectionRepository.findAll()){
-            if (acopio.getCode().equals(code)){
-                acopios.add(acopio);
-            }
-        }
-        return acopios;
+        return collectionRepository.findByCode(code);
     }
 
     public void guardarAcopio(String collectionDate, String collectionShift, String collectionSupplier, Double collectionMilk){
@@ -54,7 +48,7 @@ public class CollectionService {
             if(!file.isEmpty()){
                 try{
                     byte [] bytes = file.getBytes();
-                    Path path  = Paths.get(file.getOriginalFilename());
+                    Path path  = Paths.get(filename);
                     Files.write(path, bytes);
                     logg.info("Archivo guardado");
                 }
@@ -92,5 +86,59 @@ public class CollectionService {
                 }
             }
         }
+    }
+
+    public double bonificacionFrecuencia(ArrayList<CollectionEntity> acopios){
+        double totalManana = 0.0;
+        double totalTarde = 0.0;
+        for (CollectionEntity acopio : acopios) {
+            if (acopio.getShift().equals("M")) {
+                totalManana = totalManana + 1;
+            } else if (acopio.getShift().equals("T")) {
+                totalTarde = totalTarde + 1;
+            }
+        }  
+        if (totalManana > 10 && totalTarde > 10) {
+            return 0.20;
+        } else if (totalManana > 10) {
+            return 0.12;
+        } else if (totalTarde > 10) {
+            return 0.8;
+        } else {
+            return 0.0;
+        }
+    }
+
+    public double lecheTotal(ArrayList<CollectionEntity> acopios){
+        double totalLeche = 0.0;
+        for (CollectionEntity acopio : acopios) {
+            totalLeche = totalLeche + acopio.getMilk();
+        }  
+        return totalLeche;
+    }
+
+    public String obtenerQuincena(){
+        ArrayList<CollectionEntity> acopiosDB = obtenerAcopios();
+        if (Integer.parseInt(acopiosDB.get(0).getDate().split("/")[2]) <= 15) {
+            return acopiosDB.get(0).getDate().split("/")[0] + "/" + acopiosDB.get(0).getDate().split("/")[1] + "/" + "01";
+        } else {
+            return acopiosDB.get(0).getDate().split("/")[0] + "/" + acopiosDB.get(0).getDate().split("/")[1] + "/" + "02";
+        }
+    }
+
+    public double lechePromedio(double lecheTotal){
+        return (double) Math.round((lecheTotal / 15.0) * 100d) / 100d;
+    }
+
+    public double diasEntregaTotal(ArrayList<CollectionEntity> acopios){
+        return acopios.size();
+    }
+
+    public String obtenerCodigo(CollectionEntity acopio){
+        return acopio.getCode();
+    }
+
+    public double obtenerLeche(CollectionEntity acopio){
+        return acopio.getMilk();
     }
 }

@@ -95,4 +95,38 @@ public class GreaseAndSolidService {
             }
         }
     }
+
+    public double pagoGrasa(Double grasa){
+        if (grasa < 0.0){
+            return 0.0;
+        } else if (grasa <= 20.0) {
+            return 30.0;
+        } else if (grasa <= 45.0) {
+            return 80.0;
+        } else {
+            return 120.0;
+        }
+    }
+
+    public double pagoSolido(Double solido){
+        if (solido < 0.0){
+            return 0.0;
+        } else if (solido <= 7.0) {
+            return -130.0;
+        } else if (solido <= 18.0) {
+            return -90.0;
+        } else if (solido <= 35.0) {
+            return 95.0;
+        } else {
+            return 150.0;
+        }
+    }
+
+    public double obtenerGrasa(GreaseAndSolidEntity grasaSolido){
+        return grasaSolido.getGrease();
+    }
+
+    public double obtenerSolido(GreaseAndSolidEntity grasaSolido){
+        return grasaSolido.getSolid();
+    }
 }

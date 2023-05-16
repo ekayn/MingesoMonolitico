@@ -2,6 +2,7 @@ package com.usach.mingeso.services;
 
 import com.usach.mingeso.entities.SupplierEntity;
 import com.usach.mingeso.repositories.SupplierRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,10 @@ public class SupplierService {
         return supplierRepository.existsById(code);
     }
 
+    public boolean existeProveedorPorNombre(String name){
+        return !supplierRepository.findByName(name).isEmpty();
+    }
+
     public SupplierEntity obtenerProveedorCodigo(String code){
         return supplierRepository.getReferenceById(code);
     }
@@ -33,6 +38,27 @@ public class SupplierService {
         supplierRepository.save(proveedor);
     }
 
+    public double pagoCategoria(String category){
+        return switch (category) {
+            case "A" -> 700.0;
+            case "B" -> 550.0;
+            case "C" -> 400.0;
+            case "D" -> 250.0;
+            default -> 0.0;
+        };
+    }
+
+    public double pagoRetencion(String retention){
+        if (retention.equals("Si")){
+            return 0.13;
+        } else if (retention.equals("No")){
+            return 0.0;
+        } else{
+            return 0.0;
+        }
+    }
+
+    /*
     public boolean eliminarProveedor(String id) {
         try{
             supplierRepository.deleteById(id);
@@ -41,4 +67,15 @@ public class SupplierService {
             return false;
         }
     }
+    */
+
+    public String obtenerNombre(SupplierEntity proveedor) {
+        return proveedor.getName();
+    }
+
+    public String obtenerCategoria(SupplierEntity proveedor) {
+        return proveedor.getCategory();
+    }
+
+    public String obtenerRetencion(SupplierEntity proveedor) { return proveedor.getRetention(); }
 }
