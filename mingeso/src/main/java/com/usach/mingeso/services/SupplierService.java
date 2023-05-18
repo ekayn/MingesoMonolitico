@@ -33,8 +33,16 @@ public class SupplierService {
         SupplierEntity proveedor = new SupplierEntity();
         proveedor.setName(supplierName);
         proveedor.setCode(supplierCode);
-        proveedor.setCategory(supplierCategory);
-        proveedor.setRetention(supplierRetention);
+        if (supplierCategory.equals("A") || supplierCategory.equals("B") || supplierCategory.equals("C") || supplierCategory.equals("D")){
+            proveedor.setCategory(supplierCategory);
+        } else{
+            proveedor.setCategory("D");
+        }
+        if (supplierRetention.equals("Si") || supplierRetention.equals("No")){
+            proveedor.setRetention(supplierRetention);
+        } else{
+            proveedor.setRetention("Si");
+        }
         supplierRepository.save(proveedor);
     }
 
@@ -58,17 +66,6 @@ public class SupplierService {
         }
     }
 
-    /*
-    public boolean eliminarProveedor(String id) {
-        try{
-            supplierRepository.deleteById(id);
-            return true;
-        }catch(Exception err){
-            return false;
-        }
-    }
-    */
-
     public String obtenerNombre(SupplierEntity proveedor) {
         return proveedor.getName();
     }
@@ -77,5 +74,14 @@ public class SupplierService {
         return proveedor.getCategory();
     }
 
-    public String obtenerRetencion(SupplierEntity proveedor) { return proveedor.getRetention(); }
+    public String obtenerRetencion(SupplierEntity proveedor) {
+        return proveedor.getRetention();
+    }
+
+    public void eliminarProveedor(String id) {
+        try{
+            supplierRepository.deleteById(id);
+        }catch(Exception ignore){
+        }
+    }
 }

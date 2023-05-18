@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  postgres-db:
+    image: postgres
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/postgres
+    environment:
+      POSTGRES_PASSWORD: nikochea1997
+      POSTGRES_DB: mingeso1
+      POSTGRES_USER: postgres
+    ports:
+      - "5432:5432"
+  app:
+    container_name: mingeso_monolitico
+    image: nicolasvh/mingeso_monolitico
+    ports:
+      - "8090:8090"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/mingeso1?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=nikochea1997
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - postgres-db

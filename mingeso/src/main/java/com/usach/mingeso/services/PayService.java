@@ -62,7 +62,7 @@ public class PayService {
         PayEntity pago = new PayEntity();
 
         pago.setCode(code);
-        pago.setDate(collectionService.obtenerQuincena());
+        pago.setDate(collectionService.obtenerQuincena(collectionService.obtenerAcopios()));
         pago.setCategory(supplierService.obtenerCategoria(proveedor));
         pago.setName(supplierService.obtenerNombre(proveedor));
 

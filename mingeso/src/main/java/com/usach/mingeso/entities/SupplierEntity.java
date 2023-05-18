@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "suppliers")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Table(name = "suppliers")
 public class SupplierEntity {
     @Id
     @Column(nullable=false, length = 5)

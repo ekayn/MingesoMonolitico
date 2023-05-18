@@ -34,9 +34,17 @@ public class CollectionService {
     public void guardarAcopio(String collectionDate, String collectionShift, String collectionSupplier, Double collectionMilk){
         CollectionEntity acopio = new CollectionEntity();
         acopio.setDate(collectionDate);
-        acopio.setShift(collectionShift);
         acopio.setCode(collectionSupplier);
-        acopio.setMilk(collectionMilk);
+        if (collectionShift.equals("M") || collectionShift.equals("T")){
+            acopio.setShift(collectionShift);
+        } else{
+            acopio.setShift("M");
+        }
+        if (collectionMilk < 0.0){
+            acopio.setMilk(0.0);
+        } else{
+            acopio.setMilk(collectionMilk);
+        }
         collectionRepository.save(acopio);
     }
 
@@ -103,7 +111,7 @@ public class CollectionService {
         } else if (totalManana > 10) {
             return 0.12;
         } else if (totalTarde > 10) {
-            return 0.8;
+            return 0.08;
         } else {
             return 0.0;
         }
@@ -117,17 +125,20 @@ public class CollectionService {
         return totalLeche;
     }
 
-    public String obtenerQuincena(){
-        ArrayList<CollectionEntity> acopiosDB = obtenerAcopios();
-        if (Integer.parseInt(acopiosDB.get(0).getDate().split("/")[2]) <= 15) {
-            return acopiosDB.get(0).getDate().split("/")[0] + "/" + acopiosDB.get(0).getDate().split("/")[1] + "/" + "01";
-        } else {
-            return acopiosDB.get(0).getDate().split("/")[0] + "/" + acopiosDB.get(0).getDate().split("/")[1] + "/" + "02";
+    public String obtenerQuincena(ArrayList<CollectionEntity> acopiosDB){
+        if (!acopiosDB.isEmpty()){
+            if (Integer.parseInt(acopiosDB.get(0).getDate().split("/")[2]) <= 15) {
+                return acopiosDB.get(0).getDate().split("/")[0] + "/" + acopiosDB.get(0).getDate().split("/")[1] + "/" + "01";
+            } else {
+                return acopiosDB.get(0).getDate().split("/")[0] + "/" + acopiosDB.get(0).getDate().split("/")[1] + "/" + "02";
+            }
+        } else{
+            return "####/##/##";
         }
     }
 
     public double lechePromedio(double lecheTotal){
-        return (double) Math.round((lecheTotal / 15.0) * 100d) / 100d;
+        return (double) Math.abs(Math.round((lecheTotal / 15.0) * 100d)) / 100d;
     }
 
     public double diasEntregaTotal(ArrayList<CollectionEntity> acopios){
@@ -140,5 +151,12 @@ public class CollectionService {
 
     public double obtenerLeche(CollectionEntity acopio){
         return acopio.getMilk();
+    }
+
+    public void eliminarAcopio(CollectionEntity acopio) {
+        try{
+            collectionRepository.deleteById(acopio.getId());
+        }catch(Exception ignored){
+        }
     }
 }

@@ -34,8 +34,19 @@ public class GreaseAndSolidService {
     public void guardarGrasaYSolido(String greaseAndSolidCode, Double greaseAndSolidGrease, Double greaseAndSolidSolid){
         GreaseAndSolidEntity grasaYSolido = new GreaseAndSolidEntity();
         grasaYSolido.setCode(greaseAndSolidCode);
-        grasaYSolido.setGrease(greaseAndSolidGrease);
-        grasaYSolido.setSolid(greaseAndSolidSolid);
+        if (greaseAndSolidGrease < 0.0 && greaseAndSolidSolid < 0.0){
+            grasaYSolido.setGrease(0.0);
+            grasaYSolido.setSolid(0.0);
+        } else if (greaseAndSolidGrease < 0.0){
+            grasaYSolido.setGrease(0.0);
+            grasaYSolido.setSolid(greaseAndSolidSolid);
+        } else if (greaseAndSolidSolid < 0.0){
+            grasaYSolido.setGrease(greaseAndSolidGrease);
+            grasaYSolido.setSolid(0.0);
+        } else{
+            grasaYSolido.setGrease(greaseAndSolidGrease);
+            grasaYSolido.setSolid(greaseAndSolidSolid);
+        }
         greaseAndSolidRepository.save(grasaYSolido);
     }
 
@@ -128,5 +139,12 @@ public class GreaseAndSolidService {
 
     public double obtenerSolido(GreaseAndSolidEntity grasaSolido){
         return grasaSolido.getSolid();
+    }
+
+    public void eliminarGrasaSolido(GreaseAndSolidEntity grasaSolido) {
+        try{
+            greaseAndSolidRepository.deleteById(grasaSolido.getCode());
+        }catch(Exception ignored){
+        }
     }
 }
