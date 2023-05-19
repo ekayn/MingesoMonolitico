@@ -118,17 +118,24 @@ class GreaseAndSolidServiceTests {
         assertEquals(greaseAndSolidService.pagoSolido(-46.0), 0.0, 0.0);
     }
 
-    /*
+
     @Test
     void obtenerLaGrasa(){
-        greaseAndSolidService.guardarGrasaYSolido("0000L", 45.0, 45.0);
-        GreaseAndSolidEntity grasaSolido = greaseAndSolidService.obtenerGrasasSolidosCodigo("01234");
-        //double grasa = greaseAndSolidService.obtenerGrasas(grasaSolido);
-        double grasa = grasaSolido.getGrease();
-        assertEquals(grasa, 45.0, 0.0);
-        greaseAndSolidService.eliminarGrasaSolido(greaseAndSolidService.obtenerGrasasSolidosCodigo("0000L"));
+        GreaseAndSolidEntity grasaSolido = new GreaseAndSolidEntity();
+        grasaSolido.setCode("0000L");
+        grasaSolido.setGrease(12.0);
+        grasaSolido.setSolid(10.0);
+        assertEquals(greaseAndSolidService.obtenerGrasa(grasaSolido), 12.0, 0.0);
     }
-    */
+
+    @Test
+    void obtenerElSolido(){
+        GreaseAndSolidEntity grasaSolido = new GreaseAndSolidEntity();
+        grasaSolido.setCode("0000L");
+        grasaSolido.setGrease(12.0);
+        grasaSolido.setSolid(10.0);
+        assertEquals(greaseAndSolidService.obtenerSolido(grasaSolido), 10.0, 0.0);
+    }
 
     @Test
     void eliminarGrasaYSolido(){

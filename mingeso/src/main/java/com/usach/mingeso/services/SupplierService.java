@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class SupplierService {
     @Autowired
     SupplierRepository supplierRepository;
-
     public ArrayList<SupplierEntity> obtenerProveedores(){
         return (ArrayList<SupplierEntity>) supplierRepository.findAll();
     }
@@ -33,16 +32,8 @@ public class SupplierService {
         SupplierEntity proveedor = new SupplierEntity();
         proveedor.setName(supplierName);
         proveedor.setCode(supplierCode);
-        if (supplierCategory.equals("A") || supplierCategory.equals("B") || supplierCategory.equals("C") || supplierCategory.equals("D")){
-            proveedor.setCategory(supplierCategory);
-        } else{
-            proveedor.setCategory("D");
-        }
-        if (supplierRetention.equals("Si") || supplierRetention.equals("No")){
-            proveedor.setRetention(supplierRetention);
-        } else{
-            proveedor.setRetention("Si");
-        }
+        proveedor.setCategory(supplierCategory);
+        proveedor.setRetention(supplierRetention);
         supplierRepository.save(proveedor);
     }
 

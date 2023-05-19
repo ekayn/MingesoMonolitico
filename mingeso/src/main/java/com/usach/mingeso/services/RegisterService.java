@@ -39,7 +39,6 @@ public class RegisterService {
 
     public void actualizarGrasaSolido(){
         for (RegisterEntity registro : registerRepository.findAll()){
-
             registro.setGrease(greaseAndSolidService.obtenerGrasa(greaseAndSolidService.obtenerGrasasSolidosCodigo(registro.getCode())));
             registro.setSolid(greaseAndSolidService.obtenerSolido(greaseAndSolidService.obtenerGrasasSolidosCodigo(registro.getCode())));
         }
@@ -54,13 +53,11 @@ public class RegisterService {
         registerRepository.save(registro);
     }
 
-    public double variacionLeche(Double leche, String code){
-        RegisterEntity registro = obtenerRegistroCodigo(code);
-
-        if (registro.getMilk() == 0.0) {
-            return leche * 100.0;
+    public double variacionLeche(Double lecheAntes, Double lecheAhora){
+        if (lecheAntes <= 0.0) {
+            return lecheAhora * 100.0;
         } else {
-            double variacion = (double) Math.round((100 * (Math.abs(1 - leche / registro.getMilk()))) * 100d) / 100d;
+            double variacion = (double) Math.round((100 * (Math.abs(1 - lecheAhora / lecheAntes))) * 100d) / 100d;
             if (variacion < 100.0) {
                 return variacion * (-1);
             } else{
@@ -69,13 +66,11 @@ public class RegisterService {
         }
     }
 
-    public double variacionGrasa(Double grasa, String code){
-        RegisterEntity registro = obtenerRegistroCodigo(code);
-
-        if (registro.getGrease() == 0.0) {
-            return grasa * 100.0;
+    public double variacionGrasa(Double grasaAntes, Double grasaAhora){
+        if (grasaAntes <= 0.0) {
+            return grasaAhora * 100.0;
         } else {
-            double variacion = (double) Math.round((100 * (Math.abs(1 - grasa / registro.getGrease()))) * 100d) / 100d;
+            double variacion = (double) Math.round((100 * (Math.abs(1 - grasaAhora / grasaAntes))) * 100d) / 100d;
             if (variacion < 100.0) {
                 return variacion * (-1);
             } else{
@@ -84,13 +79,11 @@ public class RegisterService {
         }        
     }
 
-    public double variacionSolido(Double solido, String code){
-        RegisterEntity registro = obtenerRegistroCodigo(code);
-
-        if (registro.getSolid() == 0.0) {
-            return solido * 100.0;
+    public double variacionSolido(Double solidoAntes, Double solidoAhora){
+        if (solidoAntes <= 0.0) {
+            return solidoAhora * 100.0;
         } else {
-            double variacion = (double) Math.round((100 * (Math.abs(1 - solido / registro.getSolid()))) * 100d) / 100d;
+            double variacion = (double) Math.round((100 * (Math.abs(1 - solidoAhora / solidoAntes))) * 100d) / 100d;
             if (variacion < 100.0) {
                 return variacion * (-1);
             } else{
@@ -138,6 +131,25 @@ public class RegisterService {
             return 0.18;
         } else{
             return 0.0;
+        }
+    }
+
+    public double obtenerLeche(RegisterEntity registro){
+        return registro.getMilk();
+    }
+
+    public double obtenerGrasa(RegisterEntity registro){
+        return registro.getGrease();
+    }
+
+    public double obtenerSolido(RegisterEntity registro){
+        return registro.getSolid();
+    }
+
+    public void eliminarRegistro(String id) {
+        try{
+            registerRepository.deleteById(id);
+        }catch(Exception ignore){
         }
     }
 }

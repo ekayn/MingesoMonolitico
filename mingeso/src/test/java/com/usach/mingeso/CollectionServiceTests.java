@@ -211,4 +211,15 @@ class CollectionServiceTests {
         collectionService.eliminarAcopio(collectionService.obtenerAcopiosCodigo("0000L").get(0));
         assertTrue(collectionService.obtenerAcopiosCodigo("0000L").isEmpty());
     }
+
+    @Test
+    void eliminarUnAcopioNoExistente(){
+        CollectionEntity acopio = new CollectionEntity();
+        acopio.setCode("0000L");
+        acopio.setMilk(12.0);
+        acopio.setShift("T");
+        acopio.setDate("2020/10/10");
+        collectionService.eliminarAcopio(acopio);
+        assertNotNull(collectionService.obtenerAcopiosCodigo("0000L"));
+    }
 }
