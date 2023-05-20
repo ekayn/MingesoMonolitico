@@ -3,6 +3,7 @@ package com.usach.mingeso.services;
 import com.usach.mingeso.entities.CollectionEntity;
 import com.usach.mingeso.entities.RegisterEntity;
 import com.usach.mingeso.repositories.RegisterRepository;
+import lombok.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,7 @@ public class RegisterService {
         return registerRepository.getReferenceById(code);
     }
 
+    @Generated
     public void actualizarLeche(){
         for (RegisterEntity registro : registerRepository.findAll()){
             registro.setMilk(0.0);
@@ -37,6 +39,7 @@ public class RegisterService {
         }
     }
 
+    @Generated
     public void actualizarGrasaSolido(){
         for (RegisterEntity registro : registerRepository.findAll()){
             registro.setGrease(greaseAndSolidService.obtenerGrasa(greaseAndSolidService.obtenerGrasasSolidosCodigo(registro.getCode())));

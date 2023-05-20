@@ -1,11 +1,9 @@
 package com.usach.mingeso;
-import com.usach.mingeso.entities.PayEntity;
 import com.usach.mingeso.services.PayService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -138,26 +136,4 @@ class PayServiceTests {
         assertEquals(payService.pagoTotal(5000.0, -50000.0), 0.0, 0.0);
     }
 
-    /*
-    @Test
-    void crearPago(){
-        payService.pagarPorId("01332");
-        assertNotNull(payService.obtenerPagos());
-        payService.eliminarPago("01332");
-    }
-
-    @Test
-    void eliminarPago(){
-        payService.pagarPorId("01332");
-        payService.eliminarPago("01332");
-        assertNotNull(payService.obtenerPagos());
-    }
-
-    @Test
-    void eliminarPagoNoExistente(){
-        payService.eliminarPago("01332");
-        assertNotNull(payService.obtenerPagos());
-    }
-
-     */
 }

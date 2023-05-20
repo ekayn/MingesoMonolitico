@@ -2,6 +2,7 @@ package com.usach.mingeso.services;
 
 import com.usach.mingeso.entities.*;
 import com.usach.mingeso.repositories.*;
+import lombok.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -98,6 +99,7 @@ public class PayService {
         return monto - retencion;
     }
 
+    @Generated
     public void pagarPorId(String code) {
         SupplierEntity proveedor = supplierService.obtenerProveedorCodigo(code);
         GreaseAndSolidEntity grasaSolido = greaseAndSolidService.obtenerGrasasSolidosCodigo(code);
@@ -138,12 +140,5 @@ public class PayService {
         pago.setTotalPay(pagoTotal(pago.getRetention(), pago.getPay()));
 
         payRepository.save(pago);
-    }
-
-    public void eliminarPago(String id) {
-        try{
-            payRepository.deleteById(id);
-        }catch(Exception ignore){
-        }
     }
 }
