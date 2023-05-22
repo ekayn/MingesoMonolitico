@@ -1,4 +1,5 @@
 package com.usach.mingeso;
+import com.usach.mingeso.entities.RegisterEntity;
 import com.usach.mingeso.services.RegisterService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -150,6 +151,36 @@ class RegisterServiceTests {
     @Test
     void descuentoSolidoPositiva(){
         assertEquals(registerService.descuentoSolido(45.0), 0.0, 0.0);
+    }
+
+    @Test
+    void obtenerLecheRegistro(){
+        RegisterEntity registro = new RegisterEntity();
+        registro.setCode("0000L");
+        registro.setMilk(45.0);
+        registro.setSolid(10.0);
+        registro.setGrease(10.0);
+        assertEquals(registerService.obtenerLeche(registro), 45.0, 0.0);
+    }
+
+    @Test
+    void obtenerGrasaRegistro(){
+        RegisterEntity registro = new RegisterEntity();
+        registro.setCode("0000L");
+        registro.setMilk(45.0);
+        registro.setSolid(10.0);
+        registro.setGrease(10.0);
+        assertEquals(registerService.obtenerGrasa(registro), 10.0, 0.0);
+    }
+
+    @Test
+    void obtenerSolidoRegistro(){
+        RegisterEntity registro = new RegisterEntity();
+        registro.setCode("0000L");
+        registro.setMilk(45.0);
+        registro.setSolid(20.0);
+        registro.setGrease(10.0);
+        assertEquals(registerService.obtenerSolido(registro), 20.0, 0.0);
     }
 
     @Test

@@ -39,7 +39,7 @@ public class SupplierController {
                                  @RequestParam("supplierCode") String supplierCode,
                                  @RequestParam("supplierCategory") String supplierCategory,
                                  @RequestParam("supplierRetention") String supplierRetention,
-                                 RedirectAttributes redirectAttributes){
+                                 RedirectAttributes redirectAttributes) throws InterruptedException {
         if (supplierService.existeProveedorPorCodigo(supplierCode)){
             redirectAttributes.addFlashAttribute("mensaje", "¡Código de proveedor ya existente!");
         }else{
@@ -51,6 +51,7 @@ public class SupplierController {
                 redirectAttributes.addFlashAttribute("mensaje", "¡Proveedor guardado con éxito!");
             }
         }
+        Thread.sleep(3000);
         return "redirect:/ingresar-proveedor";
     }
 }
