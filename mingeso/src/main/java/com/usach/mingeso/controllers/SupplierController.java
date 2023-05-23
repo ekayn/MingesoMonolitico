@@ -51,7 +51,6 @@ public class SupplierController {
                 redirectAttributes.addFlashAttribute("mensaje", "¡Proveedor guardado con éxito!");
             }
         }
-        Thread.sleep(3000);
         return "redirect:/ingresar-proveedor";
     }
 }
